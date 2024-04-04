@@ -1,12 +1,12 @@
 # Program na validáciu rodného čísla
-# nacteni vsuptu
-# validace rodneho cisla - tvar bez lomitka
-# 9 nebo 10 znaku - typ int
-# if 10 znaku then delitelne 11 beze zvyšku
-# if 9 znaku then rok < 1.1.1954
+# validace rodneho cisla
+# nacteni vsupu - tvar bez lomitka     ok
+# 9 nebo 10 znaku - typ int     ok
+# if 10 znaku then delitelne 11 beze zvyšku         ok
+# if 9 znaku then rok < 1.1.1954            ok
 # určení datumu narození
 # prvych 6 čísel -> 3 promenne - rok_narozeni, mesic_narozeni, den_narozeni
-# kalkulace celého roku narození
+# kalkulace celého roku narození            ok
 # mesic_narozeni a zaroven urcime pohlavi -> skusíme odečíst 20, 50, 70; výsledek porovnáme s intervalem <01,12>
 # vypocet prestupni rok
 # den_narozeni -> odvodime od prestupniho roku a mesice
@@ -77,8 +77,18 @@ def validacia_datumu_narodenia(rok, mes, den, pohlavie, vydanie):
             mes = mes - 50
             print("mesiac je: ", mes)
 # nastavenie a overenie dna podla kalendára
+    den_nar = int(den)
+    print("den narodenia je: ", den_nar)
+    je_priestupny_rok(rok_nar)
+    return
 
+def je_priestupny_rok(rok_nar):
+# overenie priestupneho roka
+    if rok_nar % 400 ==0 or rok_nar % 4 ==0 and rok_nar % 100 != 0:
+        print("rok je priestupný")
 
+    else:
+        print("rok nie je priestupný")
     return
 
 def zadaj_rc():
@@ -93,27 +103,10 @@ def zadaj_rc():
             cyklus = False
     return rc
 
+# Main
 #nacitanie vstupu rc
-global rc, datum, rok, mes, den, pohlavie, vydanie
-# vydanie =""
-# rc_type pre datumy od 1.1.1954 je "new", pre dátumy pred týmto termínom je "old"
-
-# rc = input("zadajte Vase rodne cislo v tvare rrmmddxxxx : ")
+global rc, datum, rok, mes, den, pohlavie, vydanie, rok_nar, mes_nar, den_nar
 
 rc = zadaj_rc()
 validacia_rc(rc)
 
-
-
-# validace rodneho cisla
-# nacteni vsuptu
-# tvar bez lomitka
-# 9 nebo 10 znaku - typ int     ok
-# if 10 znaku then delitelne 11 beze zvyšku         ok
-# if 9 znaku then rok < 1.1.1954            ok
-# určení datumu narození
-# prvych 6 čísel -> 3 promenne - rok_narozeni, mesic_narozeni, den_narozeni
-# kalkulace celého roku narození            ok
-# mesic_narozeni a zaroven urcime pohlavi -> skusíme odečíst 20, 50, 70; výsledek porovnáme s intervalem <01,12>
-# vypocet prestupni rok
-# den_narozeni -> odvodime od prestupniho roku a mesice
