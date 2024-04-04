@@ -46,6 +46,5 @@ def vek():
 def main():
     b = vek()
     print(vek)
-aasd
 
 
