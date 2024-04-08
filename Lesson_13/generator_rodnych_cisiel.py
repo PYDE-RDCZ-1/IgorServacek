@@ -18,7 +18,7 @@ def generuj_nahodny_den():
 
 
 def dopln_kod(rok, kod):
-#    print(kod)
+#   generovanie pohlavia (1 = zena, 2 = muz)
     pohl = generuj_pohavie()
     if pohl == 1:
         # zena
@@ -35,7 +35,7 @@ def dopln_kod(rok, kod):
             a = random.randint(1, 9999)
             b = int(kod) * 10000  + a
 #            print(a, b)
-        else:
+        elif rok < 1954:
             a = random.randint(1, 999)
             b = int(kod) * 1000 + a
 #           print(a, b)
