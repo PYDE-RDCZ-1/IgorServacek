@@ -22,8 +22,8 @@ def validacia_rc(cislo):
     den = int(cislo[4:6])
     pohlavie = ""
     rc = int(cislo)
+    chyba = True
     if dlzka == 10 and rc % 11 == 0:
-#        print("korektne zadane cislo")
 # over ci muz, ci zena
         if mes <= 12:
             pohlavie = "muz"
@@ -33,7 +33,7 @@ def validacia_rc(cislo):
             pohlavie = "zena"
             print("pohlavie zena")
             vydanie = "new"
-        print("korektne zadane cislo, typu od 1.1.1954")
+#        print("zadane cislo, typu od 1.1.1954")
     elif dlzka == 9 and rok < 54 and ( mes < 13 or mes > 50 and mes < 63):
         # over ci muz, ci zena
         if mes <= 12:
@@ -44,16 +44,55 @@ def validacia_rc(cislo):
             pohlavie = "zena"
             vydanie = "old"
             print("pohlavie zena")
-        print("korektne zadane cislo, typu pred 1.1.1954")
+#        print("zadane cislo, typu pred 1.1.1954")
     else:
+        chyba = False
         print("nekorektne zadane cislo. Nie je delitelne 11")
-    validacia_datumu_narodenia(rok, mes, den, pohlavie, vydanie)
+    if chyba:
+        validacia_datumu_narodenia(rok, mes, den, pohlavie, vydanie)
+    return chyba
+
+
+def kontrola_dna():
+    if mes <=7:
+        if mes % 2 == 0 and mes != 2:
+            # párny mesiac
+            if den <= 30:
+                # správny počet dní v mesiacoch 2,4,6
+                print("zadaný korektný poćet dní v mesiaci (<=30")
+            else:
+                print("zadaný nekorktn=ý počet dní v mesiaci (>30)")
+        elif mes == 2:
+            je_priestupny_rok(rok_nar, mes, den)
+
+        else:
+            # nepárny mesiac
+            if den <= 31:
+                # správny počet dní v mesiacoch 1,3,5,7
+                print("zadaný korektný poćet dní v mesiaci (<=31")
+            else:
+                print("zadaný nekorktn=ý počet dní v mesiaci (>31)")
+    elif mes >= 8:
+        if mes % 2 == 0:
+            # párny mesiac
+            if den <= 31:
+                # správny počet dní v mesiacoch 8,10,12
+                print("zadaný korektný poćet dní v mesiaci (<30")
+            else:
+                print("zadaný nekorktný počet dní v mesiaci (>30)")
+        else:
+            # nepárny mesiac
+            if den <= 30:
+                # správny počet dní v mesiacoch 1,3,5,7
+                print("zadaný korektný poćet dní v mesiaci (<=30")
+            else:
+                print("zadaný nekorktn=ý počet dní v mesiaci (>30)")
     return
 
 
 def validacia_datumu_narodenia(rok, mes, den, pohlavie, vydanie):
-#nastavenie roku
-    print("zahajujem proces validacie datumu")
+#    nastavenie roku
+#    print("zahajujem proces validacie datumu")
     if vydanie == "old" :
         print("starý typ rc")
         if rok <54:
@@ -67,7 +106,7 @@ def validacia_datumu_narodenia(rok, mes, den, pohlavie, vydanie):
         elif rok >= 0 and rok <= 24:
             rok_nar = int("20" + str(rok))
             print("rok narodenia je: ", rok_nar)
-# nastavenie mesiaca
+# nastavenie mesiaca podla rc pre muza aj pre zenu
     if pohlavie == "muz":
         if mes >= 1 and mes <=12:
             print("mesiac je: ", mes)
@@ -79,28 +118,44 @@ def validacia_datumu_narodenia(rok, mes, den, pohlavie, vydanie):
 # nastavenie a overenie dna podla kalendára
     den_nar = int(den)
     print("den narodenia je: ", den_nar)
-    je_priestupny_rok(rok_nar)
+#   ako cheme zobrazovat prietupny/nepriestupny rok, pouzi nasl. riadok
+#    je_priestupny_rok(rok_nar, mes, den)
     return
 
-def je_priestupny_rok(rok_nar):
+def je_priestupny_rok(rok_nar, mes, den):
 # overenie priestupneho roka
     if rok_nar % 400 ==0 or rok_nar % 4 ==0 and rok_nar % 100 != 0:
-        print("rok je priestupný")
-
+        print("narodený v priestupnom roku")
+        if mes == 2 and den <= 29:
+            print("vybraný deň je korektný")
+        elif mes == 2 and den > 29:
+            print("vybraný deň v mesiaci február je nekorektný")
     else:
-        print("rok nie je priestupný")
+        print("narodený v nepriestupnom roku")
+        if mes == 2 and den <= 28:
+            print("vybraný deň je korektný")
+        elif mes == 2 and den > 28:
+            print("***vybraný deň je nekorektný")
     return
 
 def zadaj_rc():
     cyklus = True
+    is_int = True
     while cyklus:
         try:
             rc = input("zadajte Vase rodne cislo v tvare rrmmddxxxx : ")
+            int(rc)
         except ValueError:
             print("zadali ste chybné číslo")
         else:
-            print("zadali ste správne číslo: ", rc)
-            cyklus = False
+            if not type(isinstance(rc, int)):
+                is_int = False
+                print("Vami zadana hodnota rc obsahuje nepovolene znaky")
+            if (len(rc) == 10 or len(rc) == 9) and is_int:
+                print("zadané číslo: ", rc, " má správny počet číslic: ", len(rc))
+                cyklus = False
+            else:
+                print("dĺžka rc je nesprávna, zadali ste : ", len(rc), " znakov. ")
     return rc
 
 # Main
