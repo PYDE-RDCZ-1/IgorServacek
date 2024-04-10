@@ -66,13 +66,10 @@ def generuj_pohavie():
 
 def test_rc():
 # testy na dĺžku rodného čísla a deliteľnos't 11
-    assert len(str(rc)) == 10 or len(str(rc)) == 9, "dĺžka rodného čísla nezodpovedá predpísanej dĺžke"
+    assert (len(str(rc)) == 10) or (len(str(rc)) == 9), "dĺžka rodného čísla nezodpovedá predpísanej dĺžke"
     assert int(rc) % 11 == 0, "číslo nie je deliteľné 11"
 
-
-# x =0
-# print("Generator rodných čísiel vytlačí 8 rôznych RČ:")
-# cyklus = int(input("zadajte počet generovaných rodných čísiel: "))
+# Generovanie náhodných rodných cisiel
 for x in range(0, 8):
     nahodny_den = generuj_nahodny_den()
     print("Nahodny den:", nahodny_den, end=", ")
