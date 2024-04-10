@@ -50,7 +50,7 @@ def dopln_kod(rok, kod):
         b = "0" + str(b)
     print("rodné číslo: ", b)
 
-    return
+    return b
 
 
 def generuj_pohavie():
@@ -63,7 +63,6 @@ def generuj_pohavie():
 
 
 x =0
-
 print("Generator rodných čísiel vytlačí 8 rôznych RČ:")
 cyklus = int(input("zadajte počet generovaných rodných čísiel: "))
 for x in range(0, cyklus):
@@ -77,5 +76,5 @@ for x in range(0, cyklus):
     #    print(datum_skr)
     datum_cely = nahodny_den[0]
     #    print(rc_datum)
-    dopln_kod(datum_cely, datum_skr)
+    rc = dopln_kod(datum_cely, datum_skr)
 
