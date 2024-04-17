@@ -38,6 +38,7 @@ def kalkulacka(string):
     return
 
 
+def
 vstup = "1"
 while vstup != "0":
     vstup = input("Zadajte celé číslo ľubovoľnú operaciu a celé číslo (Pr: 100+80): ")
