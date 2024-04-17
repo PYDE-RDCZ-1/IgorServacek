@@ -100,12 +100,14 @@ def osetri_subor(file):
     return
 
 
+# Program
 nak_zoznam = {
     ("kofola", 2),
     ("múka", 3),
     ("minerálka", 6),
     ("maslo", 2)
 }
+
 
 naz_suboru = input("Zadaj názov txt súboru v tvare nazov.txt:")
 vymaz_subor(naz_suboru)
