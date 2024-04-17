@@ -51,6 +51,7 @@ def pridaj_polozku(subor, item, number):
     # pridanie položky do súboru s nákupným zoznamom
     try:
         with open(subor, 'a') as subor:
+            subor.seek(0,2)
             subor.write(f"{item}, {number}\n")
     except FileNotFoundError:
         print("nenajdeny subor")
