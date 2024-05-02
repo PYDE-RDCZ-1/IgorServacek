@@ -135,3 +135,10 @@ prepona = lambda u, v: float  (u**2 + v**2) ** 0.5
 aaa = prepona(3,4)
 print(aaa)
 
+
+a =[x.append(x[-1]*x[i-1]) for i in range (1,10)]
+print(x)
+
+
+[x.append(x[-1] * x[i]) for i in range (1,10)]
+print(x)

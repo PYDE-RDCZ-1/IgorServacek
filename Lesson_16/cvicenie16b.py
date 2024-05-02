@@ -8,7 +8,7 @@ def compute(file_name):
     numbers = []
     try:
         # Open the CSV file
-        with open(file_name, "r") as csvfile:
+        with open(file_name, "r", encoding="UTF8") as csvfile:
             reader = csv.reader(csvfile)
             # Iterate over each row in the CSV file
             for row in reader:
