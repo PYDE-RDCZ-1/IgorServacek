@@ -14,11 +14,12 @@
 
 import sys
 
+
 class Matica:
     def __init__(self, stlpec, riadok):
         self.stlpec = stlpec
         self.riadok = riadok
-        self.data = [[ "_" for _ in range (stlpec)] for _ in range (riadok)]
+        self.data = [["_" for _ in range(stlpec)] for _ in range(riadok)]
 
     def __str__(self):
         matica_str = ""
@@ -37,13 +38,13 @@ class Matica:
 
     def hracia_pocha(self):
         print("Aktuálny stav na hracej ploche:")
-        for i in range (self.stlpec):
+        for i in range(self.stlpec):
             if i < 9:
                 print(f" {i + 1}", end=" ")
             else:
                 print(i + 1, end=" ")
-            for j in range (self.riadok):
-                print(self.data[i][j], end = " ")
+            for j in range(self.riadok):
+                print(self.data[i][j], end=" ")
             print()
         return
 
@@ -65,16 +66,15 @@ class Matica:
         while prebieha:
             korektne_zadanie = True
             while korektne_zadanie:
-                print("Hráč ", player_nr, ". Zadaj súradnicu x : ")
+                print("Na ťahu je hráč ", player_nr, ". Zadaj súradnicu x : ", end="")
                 a = get_input()
                 if a < 1 or a > self.riadok:
                     print("hodnoty môžu byť z intervalu <1,", self.riadok, ">. Zadajte znovu")
                 else:
-#                    prebieha = False
                     korektne_zadanie = False
             korektne_zadanie = True
             while korektne_zadanie:
-                print("Zadaj súradnicu y : ")
+                print("Zadajte súradnicu y : ", end="")
                 b = get_input()
                 if b < 1 or b > self.stlpec:
                     print("hodnoty môžu byť z intervalu <1,", self.stlpec, ">. Zadajte znovu")
@@ -82,7 +82,7 @@ class Matica:
                     print("zadali ste súradnice poľa, ktoré už obsahuje hrací kameň. Prosím, opakujte znova!")
                     prebieha = True
                 else:
-                    self.over_volnu_bunku( a, b)
+                    self.over_volnu_bunku(a, b)
                     korektne_zadanie = False
                     prebieha = False
         if players.meno1 == player_nr:
@@ -92,8 +92,8 @@ class Matica:
         return
 
     def over_susedov(self, row, col, znak):
-        self.row = row
-        self.col = col
+        # row = row
+        # col = col
         directions = [(0, 1), (1, 0), (1, 1), (-1, 1)]  # Right, Down, Diagonal (bottom-right), Diagonal (top-right)
         for dr, dc in directions:
             count = 1
@@ -117,17 +117,19 @@ class Matica:
                     return True
         return False
 
+
 class Players:
     def __init__(self, meno1, meno2):
         self.meno1 = meno1
         self.meno2 = meno2
         self.mena = [meno1, meno2]
         self.index = 0
+
     def __iter__(self):
         return self
 
     def __next__(self):
-        if self.index <len(self.mena):
+        if self.index < len(self.mena):
             name = self.mena[self.index]
             self.index += 1
             return name
@@ -137,7 +139,8 @@ class Players:
     def privitaj_hracov(self):
         for name in self.mena:
             print(f"Vitaj hráč: {name}")
-        print("Hra môže začať na ťahu je hráč 1. \nZadaj súradnice pre uloženie Tvojej značky. \nHráč 1 ukladá značku x, hráč 2 ukladá značku o." )
+        print("Hra môže začať na ťahu je hráč 1. \nZadaj súradnice pre uloženie Tvojej značky.")
+        print("Hráč 1 ukladá značku x, hráč 2 ukladá značku o.")
 
     @classmethod
     def zadaj_mena(cls):
@@ -146,27 +149,39 @@ class Players:
         return cls(meno1, meno2)
 
 
+def zadaj_pociatocne_hodnoty():
+    print("Cieľom hry PIŠKVORKY je postaviť v horizontále, vertikále alebo diagonále 5 vlastných značiek pri sebe.")
+    print("Hru vyhráva ten, kto ich postaví, ako prvý.")
+    print("\n")
+    print("Na počiatku hry vytvoríme hracie pole o veľkosti 10x10 až 30x30.  ")
+    print("Zadajte číslo v intervale 10 až 30 na určenie veľkosti hracieho poľa: ", end="")
+    opakuj = True
+    velkost = 1
+    while opakuj:
+        velkost = get_input()
+        if 10 <= velkost <= 30:
+            opakuj = False
+        else:
+            print("Zadané číslo nemá hodnotu z intervalu 10 až 30. Opakujte voľbu, prosím: ", end="")
+    # nastav maticu na hodnotu velkost
+    print("Vytvorili ste hracie pole o veľkosti ", velkost, "x", velkost, ".")
+    return velkost
 
-def zadaj_pociatocne_hodnoty(players, rozmer):
-
-    return
 
 def get_input():
-    x = int(sys.stdin.readline())
-    return x
+    while True:
+        try:
+            x = int(sys.stdin.readline())
+            return x
+        except ValueError:
+            print("Chybné zadanie, prosím, zadajte platné číslo: ", end="")
 
-matica = Matica(10, 10)
-"""
-print(matica)
-print(matica.hracia_pocha())
-print(matica.check_free_item(5,5))
-matica.nastav_hodnotu_bunky(1, 1, "x")
-print(matica.check_free_item(1,1))
-print(matica)
-"""
-    # zadanie rozmerov poľa, mien hráčov 1 a 2, pridelenie hracích znakov
-# players =[None, None]
-# zadaj parametre matice
+
+# zadaj rozmery hracieho poľa
+rozmer = zadaj_pociatocne_hodnoty()
+matica = Matica(rozmer, rozmer)
+# matica.hracia_pocha()
+# zadaj mená hráčov
 players = Players.zadaj_mena()
 players.privitaj_hracov()
 matica.hracia_pocha()
@@ -189,7 +204,7 @@ while hra:
 #   matica.nastav_hodnotu_bunky(1,2,"x")
     # tah hraca 2, zaroven overuje, ci je bunka volna
     # over vitaza
-    if matica.over_vitaza("o") == True:
+    if matica.over_vitaza("o"):
             print("hra sa skončila víťazstvom hráča 1", players.meno1)
             hra = False
     else:
@@ -198,7 +213,7 @@ while hra:
     #    matica.over_volnu_bunku(1,5)
         # zobrazenie hracieho pola
         matica.hracia_pocha()
-        if matica.over_vitaza("x") == True:
+        if matica.over_vitaza("x"):
             print("hra sa skončila víťazstvom hráča 2, menom: ", players.meno2)
             hra = False
         # kontrola moznej vyhry
@@ -206,12 +221,9 @@ print("Hra ukončená")
 
 
 """
-
-print(players)
-
-
-
-
+######################
+STARY PROJEKT
+######################
 # startove hodnoty pre hraciu plochu
 def reset_matrix():
     hracie_pole = [["_", "_", "_"],
