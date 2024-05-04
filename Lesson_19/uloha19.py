@@ -72,17 +72,18 @@ class Matica:
                     print("hodnoty môžu byť z intervalu <1,", self.riadok, ">. Zadajte znovu")
                 else:
                     korektne_zadanie = False
-            korektne_zadanie = True
-            while korektne_zadanie:
+            #    korektne_zadanie = True
+            #start
+            # while korektne_zadanie:
                 print("Zadajte súradnicu y : ", end="")
                 b = get_input()
                 if b < 1 or b > self.stlpec:
                     print("hodnoty môžu byť z intervalu <1,", self.stlpec, ">. Zadajte znovu")
-                elif self.data[a - 1][b - 1] != "_":
+                elif not self.over_volnu_bunku(a, b):
                     print("zadali ste súradnice poľa, ktoré už obsahuje hrací kameň. Prosím, opakujte znova!")
                     prebieha = True
                 else:
-                    self.over_volnu_bunku(a, b)
+                    # self.over_volnu_bunku(a, b)
                     korektne_zadanie = False
                     prebieha = False
         if players.meno1 == player_nr:
@@ -94,7 +95,7 @@ class Matica:
     def over_susedov(self, row, col, znak):
         # row = row
         # col = col
-        directions = [(0, 1), (1, 0), (1, 1), (-1, 1)]  # Right, Down, Diagonal (bottom-right), Diagonal (top-right)
+        directions = [(0, 1), (1, 0), (1, 1), (-1, 1)]
         for dr, dc in directions:
             count = 1
             for i in range(1, 5):
@@ -117,6 +118,10 @@ class Matica:
                     return True
         return False
 
+    def vytvor_testovacieho_vitaza(self):
+        for i in range(5):
+            self.data[i][i] = "o"
+        return
 
 class Players:
     def __init__(self, meno1, meno2):
@@ -176,6 +181,22 @@ def get_input():
         except ValueError:
             print("Chybné zadanie, prosím, zadajte platné číslo: ", end="")
 
+def zadaj_volbu():
+    while True:
+        user_input = input("Zadajte 'a' pre možnosť zobrazenia histórie hier,alebo 'n' pre opustenie hŕy bez zobrazenia histórie.").strip().lower()
+        if user_input == 'a' or user_input == 'n':
+            return user_input
+        else:
+            print("Invalid input. Please enter 'a' or 'n'.")
+
+
+def zobraz_obsah_suboru(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            for line in file:
+                print(line, end='')  # Use end='' to prevent extra newline characters
+    except FileNotFoundError:
+        print("Súbor nebol nájdený:", file_path)
 
 # zadaj rozmery hracieho poľa
 rozmer = zadaj_pociatocne_hodnoty()
@@ -194,18 +215,23 @@ matica.over_vitaza("x")
 matica.over_vitaza("o")
 
 hra = True
+kolo = 0
 while hra:
+    kolo += 1
     # tah hraca 1, zaroven overuje, ci je bunka volna
     matica.zadaj_suradnice_tahu(players.meno1)
     # test opravnenosti tahu
 #    matica.over_volnu_bunku
     # zobrazenie hracieho pola
     matica.hracia_pocha()
-#   matica.nastav_hodnotu_bunky(1,2,"x")
+    # nasl. 2 riadky sú vytvorené len pre testovacie úćely
+    # matica.vytvor_testovacieho_vitaza()
+    # matica.nastav_hodnotu_bunky(1,2,"x")
     # tah hraca 2, zaroven overuje, ci je bunka volna
     # over vitaza
     if matica.over_vitaza("o"):
             print("hra sa skončila víťazstvom hráča 1", players.meno1)
+            vitaz = players.meno1
             hra = False
     else:
         matica.zadaj_suradnice_tahu(players.meno2)
@@ -215,9 +241,36 @@ while hra:
         matica.hracia_pocha()
         if matica.over_vitaza("x"):
             print("hra sa skončila víťazstvom hráča 2, menom: ", players.meno2)
+            vitaz = players.meno2
             hra = False
         # kontrola moznej vyhry
+
+# zápis záznamu z hry do súboru
+print("Vykonávam záznam z hry do súboru zaznamy.txt")
+from datetime import datetime
+current_datetime = datetime.now()
+# actual_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+file_path = "zaznam.txt"
+current_datetime_length = 20
+vitaz_length = 15
+kolo_length = 3
+# formátované premenné pre zápis
+formatted_datetime = f"{current_datetime.strftime('%Y-%m-%d %H:%M:%S'):<{current_datetime_length}}"
+formatted_vitaz = f"{vitaz[:vitaz_length]:<{vitaz_length}}"
+formatted_kolo = f"{kolo:<{kolo_length}}"
+print("Aktuálny dátum a čas ukončenia hry: ", formatted_datetime)
+print("Víťazom je hráč: ", formatted_vitaz)
+print("Počet kôl: ", formatted_kolo)
+
+with open(file_path, "a") as file:
+    record = "dátum: " + formatted_datetime + ", víťaz: " + formatted_vitaz + ", počet odohraných kôl: " + formatted_kolo + "\n"
+    file.write(record)
 print("Hra ukončená")
+
+if zadaj_volbu() == "a":
+    zobraz_obsah_suboru(file_path)#vytlac subor
+else:
+    print("Ukonćenie bez zobrazenia súboru s históriou hier.")
 
 
 """
