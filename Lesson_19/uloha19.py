@@ -10,7 +10,7 @@
 # Alternativa: Vytvoř zcela nový projekt, pokud máš pocit, že tě první projekt limituje.
 
 
-# GAME CROSS
+# Hra PIŠKVORKY
 
 import sys
 
