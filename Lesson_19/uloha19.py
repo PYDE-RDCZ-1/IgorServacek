@@ -75,17 +75,17 @@ class Matica:
             #    korektne_zadanie = True
             #start
             # while korektne_zadanie:
-                print("Zadajte súradnicu y : ", end="")
-                b = get_input()
-                if b < 1 or b > self.stlpec:
-                    print("hodnoty môžu byť z intervalu <1,", self.stlpec, ">. Zadajte znovu")
-                elif not self.over_volnu_bunku(a, b):
-                    print("zadali ste súradnice poľa, ktoré už obsahuje hrací kameň. Prosím, opakujte znova!")
-                    prebieha = True
-                else:
-                    # self.over_volnu_bunku(a, b)
-                    korektne_zadanie = False
-                    prebieha = False
+            print("Zadajte súradnicu y : ", end="")
+            b = get_input()
+            if b < 1 or b > self.stlpec:
+                print("hodnoty môžu byť z intervalu <1,", self.stlpec, ">. Zadajte znovu")
+            elif not self.over_volnu_bunku(a, b):
+                print("zadali ste súradnice poľa, ktoré už obsahuje hrací kameň. Prosím, opakujte znova!")
+                prebieha = True
+            else:
+                # self.over_volnu_bunku(a, b)
+                korektne_zadanie = False
+                prebieha = False
         if players.meno1 == player_nr:
             self.data[a - 1][b - 1] = "o"
         elif players.meno2 == player_nr:
@@ -145,7 +145,7 @@ class Players:
         for name in self.mena:
             print(f"Vitaj hráč: {name}")
         print("Hra môže začať na ťahu je hráč 1. \nZadaj súradnice pre uloženie Tvojej značky.")
-        print("Hráč 1 ukladá značku x, hráč 2 ukladá značku o.")
+        print("Hráč 1 ukladá značku o, hráč 2 ukladá značku x.")
 
     @classmethod
     def zadaj_mena(cls):
@@ -181,9 +181,9 @@ def get_input():
         except ValueError:
             print("Chybné zadanie, prosím, zadajte platné číslo: ", end="")
 
-def zadaj_volbu():
+def zadaj_volbu(retazec):
     while True:
-        user_input = input("Zadajte 'a' pre možnosť zobrazenia histórie hier,alebo 'n' pre opustenie hŕy bez zobrazenia histórie.").strip().lower()
+        user_input = input(retazec).strip().lower()
         if user_input == 'a' or user_input == 'n':
             return user_input
         else:
@@ -267,10 +267,10 @@ with open(file_path, "a") as file:
     file.write(record)
 print("Hra ukončená")
 
-if zadaj_volbu() == "a":
+if zadaj_volbu("Zadajte 'a' pre možnosť zobrazenia histórie hier,alebo 'n' pre opustenie hŕy bez zobrazenia histórie.") == "a":
     zobraz_obsah_suboru(file_path)#vytlac subor
 else:
-    print("Ukonćenie bez zobrazenia súboru s históriou hier.")
+    print("Ukončenie bez zobrazenia súboru s históriou hier.")
 
 
 """
