@@ -13,7 +13,8 @@
 # Hra PIŠKVORKY
 
 import sys
-
+import time
+from datetime import timedelta
 
 class Matica:
     def __init__(self, stlpec, riadok):
@@ -216,6 +217,8 @@ matica.over_vitaza("o")
 
 hra = True
 kolo = 0
+# nastavenie času začiatku hry
+start_time = time.time()
 while hra:
     kolo += 1
     # tah hraca 1, zaroven overuje, ci je bunka volna
@@ -244,26 +247,34 @@ while hra:
             vitaz = players.meno2
             hra = False
         # kontrola moznej vyhry
-
+# výpočet času trvania hry
+end_time = time.time()
+total_time = end_time - start_time
+elapsed_timedelta = timedelta(seconds=total_time)
+formatted_total_time = str(elapsed_timedelta)
 # zápis záznamu z hry do súboru
 print("Vykonávam záznam z hry do súboru zaznamy.txt")
 from datetime import datetime
+# Aktuálny čas
 current_datetime = datetime.now()
-# actual_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+# názov súboru so záznamom hry
 file_path = "zaznam.txt"
 current_datetime_length = 20
 vitaz_length = 15
 kolo_length = 3
+total_time_length = 10
 # formátované premenné pre zápis
 formatted_datetime = f"{current_datetime.strftime('%Y-%m-%d %H:%M:%S'):<{current_datetime_length}}"
 formatted_vitaz = f"{vitaz[:vitaz_length]:<{vitaz_length}}"
 formatted_kolo = f"{kolo:<{kolo_length}}"
+# formatted_total_time = f"{total_time.strftime('%H:%M:%S'):<{total_time_length}}"
 print("Aktuálny dátum a čas ukončenia hry: ", formatted_datetime)
 print("Víťazom je hráč: ", formatted_vitaz)
 print("Počet kôl: ", formatted_kolo)
+print("Dĺžka trvania hry: ", formatted_total_time)
 
 with open(file_path, "a") as file:
-    record = "dátum: " + formatted_datetime + ", víťaz: " + formatted_vitaz + ", počet odohraných kôl: " + formatted_kolo + "\n"
+    record = "dátum: " + formatted_datetime + ", víťaz: " + formatted_vitaz + ", počet odohraných kôl: " + formatted_kolo + ", dĺžka trvania hry: " + formatted_total_time +"\n"
     file.write(record)
 print("Hra ukončená")
 
