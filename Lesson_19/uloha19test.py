@@ -1,19 +1,14 @@
-# Uprav svůj projekt tak, že použiješ zásady OOP a také znalosti z druhé poloviny kurzu.
-# Vytvoř třídy
-# Vhodně použij atributy místo proměnných
-# Nahraď funkce metodami
-# Použij iterátory
-# Implementuj čtení/zapisování z/do souboru
-# Importuj další moduly a knihovny
-# Napiš testy pro svúj kód
-# Vhodně použij try/except
-# Alternativa: Vytvoř zcela nový projekt, pokud máš pocit, že tě první projekt limituje.
+# POZNÁMKA K TESTOM
+# vzhľadom k chybovým oznamom pri vykonávaní testov, musel som v kóde odstrániť vśetky vstupy cez klávesnicu (interakcie).
+# aktuálne je zabezpePcený 1 priechod cez loop
+# Test je zameraný na overenie funkcie overujúcej voľnú bunku
 
 
 # Hra PIŠKVORKY
 
 import sys
 import time
+import unittest
 from datetime import timedelta
 from datetime import datetime
 
@@ -70,7 +65,7 @@ class Matica:
             korektne_zadanie = True
             while korektne_zadanie:
                 print("Na ťahu je hráč ", player_nr, ". Zadaj súradnicu x : ", end="")
-                a = get_input()
+                a = 10
                 if a < 1 or a > self.riadok:
                     print("hodnoty môžu byť z intervalu <1,", self.riadok, ">. Zadajte znovu")
                 else:
@@ -79,7 +74,7 @@ class Matica:
             # start
             # while korektne_zadanie:
             print("Zadajte súradnicu y : ", end="")
-            b = get_input()
+            b = 10
             if b < 1 or b > self.stlpec:
                 print("hodnoty môžu byť z intervalu <1,", self.stlpec, ">. Zadajte znovu")
             elif not self.over_volnu_bunku(a, b):
@@ -153,8 +148,10 @@ class Players:
 
     @classmethod
     def zadaj_mena(cls):
-        meno1 = input("Zadaj meno hráča 1: ")
-        meno2 = input("Zadaj meno hráča 2: ")
+#        meno1 = input("Zadaj meno hráča 1: ")
+#        meno2 = input("Zadaj meno hráča 2: ")
+        meno1 = "Test1"
+        meno2 = "Test2"
         return cls(meno1, meno2)
 
 
@@ -180,7 +177,8 @@ def zadaj_pociatocne_hodnoty():
 def get_input():
     while True:
         try:
-            x = int(sys.stdin.readline())
+#            x = int(sys.stdin.readline())
+            x = 10
             return x
         except ValueError:
             print("Chybné zadanie, prosím, zadajte platné číslo: ", end="")
@@ -204,8 +202,20 @@ def zobraz_obsah_suboru(file_path):
         print("Súbor nebol nájdený:", file_path)
 
 
+class TestMatica(unittest.TestCase):
+    def test_over_volnu_bunku(self):
+        # Assuming `matica` is an instance of the Matica class
+        result = matica.over_volnu_bunku(1, 2)
+        self.assertTrue(result)
+
+# testy
+
+
+
+
 # zadaj rozmery hracieho poľa
-rozmer = zadaj_pociatocne_hodnoty()
+# rozmer = zadaj_pociatocne_hodnoty()
+rozmer = 25
 matica = Matica(rozmer, rozmer)
 # zadaj mená hráčov
 players = Players.zadaj_mena()
@@ -214,6 +224,11 @@ players.privitaj_hracov()
 matica.hracia_pocha()
 matica.over_vitaza("x")
 matica.over_vitaza("o")
+# test
+
+if __name__ == '__main__':
+    unittest.main()
+
 hra = True
 kolo = 0
 # nastavenie času začiatku hry
@@ -221,7 +236,7 @@ start_time = time.time()
 while hra:
     kolo += 1
     # tah hraca 1, zaroven overuje, ci je bunka volna
-    matica.zadaj_suradnice_tahu(players.meno1)
+#    matica.zadaj_suradnice_tahu(players.meno1)
     # zobrazenie hracieho pola
     matica.hracia_pocha()
     # over vitaza
@@ -230,15 +245,17 @@ while hra:
         vitaz = players.meno1
         hra = False
     else:
-        matica.zadaj_suradnice_tahu(players.meno2)
+#        matica.zadaj_suradnice_tahu(players.meno2)
         # zobrazenie hracieho pola
         matica.hracia_pocha()
         if matica.over_vitaza("x"):
             print("hra sa skončila víťazstvom hráča 2, menom: ", players.meno2)
             vitaz = players.meno2
             hra = False
+    hra = False
         # kontrola moznej vyhry
 # výpočet času trvania hry
+vitaz = "Testovaci vitaz"
 end_time = time.time()
 total_time = end_time - start_time
 elapsed_timedelta = timedelta(seconds=total_time)
@@ -269,12 +286,14 @@ with open(file_name, "a") as file:
     file.write(record)
 print("Hra ukončená")
 
-if zadaj_volbu("Zadajte 'a' pre možnosť zobrazenia histórie hier, alebo 'n' pre opustenie hŕy bez zobrazenia histórie.") == "a":
-    print("\nZobrazenie histórie odohraných hier:")
-    zobraz_obsah_suboru(file_name)
-else:
-    print("Ukončenie bez zobrazenia súboru s históriou hier.")
+#if zadaj_volbu("Zadajte 'a' pre možnosť zobrazenia histórie hier, alebo 'n' pre opustenie hŕy bez zobrazenia histórie.") == "a":
+#    print("\nZobrazenie histórie odohraných hier:")
+#    zobraz_obsah_suboru(file_name)
+#else:
+#    print("Ukončenie bez zobrazenia súboru s históriou hier.")
 print("Dovidenia pri ďalšej hre")
+
+
 
 """
 ######################
