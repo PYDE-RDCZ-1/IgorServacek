@@ -1,0 +1,12 @@
+Záznamy z testov:
+dátum:2024-05-04 10:38:13víťaz: wer
+dátum: 2024-05-04 10:40:41, víťaz: Peter, počet odohraných kôl: 1
+dátum: 2024-05-04 10:58:23 , víťaz: Juraj          , počet odohraných kôl: 1
+Záznamy z reálnej hry
+dátum: 2024-05-04 11:03:13 , víťaz: Vlado          , počet odohraných kôl: 5
+dátum: 2024-05-04 11:30:51 , víťaz: a              , počet odohraných kôl: 6  
+dátum: 2024-05-05 08:15:59 , víťaz: Juraj          , počet odohraných kôl: 5  
+dátum: 2024-05-06 06:06:48 , víťaz: Luboš          , počet odohraných kôl: 5  , dĺžka trvania hry: 0:01:43.447405
+dátum: 2024-05-06 07:40:48 , víťaz: Testovaci vitaz, počet odohraných kôl: 1  , dĺžka trvania hry: 0:00:00.020480
+dátum: 2024-05-06 07:42:02 , víťaz: Testovaci vitaz, počet odohraných kôl: 1  , dĺžka trvania hry: 0:00:00.023552
+dátum: 2024-05-06 07:44:39 , víťaz: Testovaci vitaz, počet odohraných kôl: 1  , dĺžka trvania hry: 0:00:00.018345
