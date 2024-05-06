@@ -1,5 +1,5 @@
 # POZNÁMKA K TESTOM
-# vzhľadom k chybovým oznamom pri vykonávaní testov, musel som v kóde odstrániť vśetky vstupy cez klávesnicu (interakcie).
+# vzhľadom k chybovým oznamom pri vykonávaní testov, kvoli interakcii s klavesnicou som musel v kóde odstrániť vśetky vstupy cez klávesnicu (interakcie).
 # aktuálne je zabezpePcený 1 priechod cez loop
 # Test je zameraný na overenie funkcie overujúcej voľnú bunku
 
@@ -25,7 +25,6 @@ class Matica:
             matica_str += " ".join(map(str, stlpec)) + "\n"
         return matica_str
 
-#    def over_zasah(self):
 
     def check_free_item(self, stlpec, riadok):
         if self.data[stlpec - 1][riadok - 1] == "_":
