@@ -1,7 +1,7 @@
 # POZNÁMKA K TESTOM
 # vzhľadom k chybovým oznamom pri vykonávaní testov, kvoli interakcii s klavesnicou som musel v kóde odstrániť vśetky vstupy cez klávesnicu (interakcie).
 # aktuálne je zabezpePcený 1 priechod cez loop
-# Test je zameraný na overenie funkcie overujúcej voľnú bunku
+# Test je zameraný na funkciu overujúcu voľnú bunku a test nájdenia víťaza
 
 
 # Hra PIŠKVORKY
@@ -207,6 +207,10 @@ class TestMatica(unittest.TestCase):
         result = matica.over_volnu_bunku(1, 2)
         self.assertTrue(result)
 
+    def test_over_vitaza(self):
+        # Assuming `matica` is an instance of the Matica class
+        result = matica.over_vitaza("o")
+        self.assertTrue(result)
 # testy
 
 
@@ -223,11 +227,12 @@ players.privitaj_hracov()
 matica.hracia_pocha()
 matica.over_vitaza("x")
 matica.over_vitaza("o")
+
 # test
 
 if __name__ == '__main__':
     unittest.main()
-
+# end test
 hra = True
 kolo = 0
 # nastavenie času začiatku hry
@@ -254,6 +259,7 @@ while hra:
     hra = False
         # kontrola moznej vyhry
 # výpočet času trvania hry
+matica.vytvor_testovacieho_vitaza()
 vitaz = "Testovaci vitaz"
 end_time = time.time()
 total_time = end_time - start_time
