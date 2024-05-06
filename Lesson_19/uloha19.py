@@ -15,6 +15,7 @@
 import sys
 import time
 from datetime import timedelta
+from datetime import datetime
 
 class Matica:
     def __init__(self, stlpec, riadok):
@@ -74,7 +75,7 @@ class Matica:
                 else:
                     korektne_zadanie = False
             #    korektne_zadanie = True
-            #start
+            # start
             # while korektne_zadanie:
             print("Zadajte súradnicu y : ", end="")
             b = get_input()
@@ -123,6 +124,7 @@ class Matica:
         for i in range(5):
             self.data[i][i] = "o"
         return
+
 
 class Players:
     def __init__(self, meno1, meno2):
@@ -182,6 +184,7 @@ def get_input():
         except ValueError:
             print("Chybné zadanie, prosím, zadajte platné číslo: ", end="")
 
+
 def zadaj_volbu(retazec):
     while True:
         user_input = input(retazec).strip().lower()
@@ -199,19 +202,15 @@ def zobraz_obsah_suboru(file_path):
     except FileNotFoundError:
         print("Súbor nebol nájdený:", file_path)
 
+
 # zadaj rozmery hracieho poľa
 rozmer = zadaj_pociatocne_hodnoty()
 matica = Matica(rozmer, rozmer)
-# matica.hracia_pocha()
 # zadaj mená hráčov
 players = Players.zadaj_mena()
 players.privitaj_hracov()
+# zobrazenie hracej plochy
 matica.hracia_pocha()
-# hrac1 = players.meno1
-# for i in range (4,10):
-#     matica.nastav_hodnotu_bunky(3, i, "x")
-# print(matica.hracia_pocha())
-
 matica.over_vitaza("x")
 matica.over_vitaza("o")
 
@@ -223,23 +222,15 @@ while hra:
     kolo += 1
     # tah hraca 1, zaroven overuje, ci je bunka volna
     matica.zadaj_suradnice_tahu(players.meno1)
-    # test opravnenosti tahu
-#    matica.over_volnu_bunku
     # zobrazenie hracieho pola
     matica.hracia_pocha()
-    # nasl. 2 riadky sú vytvorené len pre testovacie úćely
-    # matica.vytvor_testovacieho_vitaza()
-    # matica.nastav_hodnotu_bunky(1,2,"x")
-    # tah hraca 2, zaroven overuje, ci je bunka volna
     # over vitaza
     if matica.over_vitaza("o"):
-            print("hra sa skončila víťazstvom hráča 1", players.meno1)
-            vitaz = players.meno1
-            hra = False
+        print("hra sa skončila víťazstvom hráča 1", players.meno1)
+        vitaz = players.meno1
+        hra = False
     else:
         matica.zadaj_suradnice_tahu(players.meno2)
-        # test opravnenosti tahu
-    #    matica.over_volnu_bunku(1,5)
         # zobrazenie hracieho pola
         matica.hracia_pocha()
         if matica.over_vitaza("x"):
@@ -254,11 +245,11 @@ elapsed_timedelta = timedelta(seconds=total_time)
 formatted_total_time = str(elapsed_timedelta)
 # zápis záznamu z hry do súboru
 print("Vykonávam záznam z hry do súboru zaznamy.txt")
-from datetime import datetime
+# from datetime import datetime
 # Aktuálny čas
 current_datetime = datetime.now()
 # názov súboru so záznamom hry
-file_path = "zaznam.txt"
+file_name = "zaznam.txt"
 current_datetime_length = 20
 vitaz_length = 15
 kolo_length = 3
@@ -273,16 +264,17 @@ print("Víťazom je hráč: ", formatted_vitaz)
 print("Počet kôl: ", formatted_kolo)
 print("Dĺžka trvania hry: ", formatted_total_time)
 
-with open(file_path, "a") as file:
-    record = "dátum: " + formatted_datetime + ", víťaz: " + formatted_vitaz + ", počet odohraných kôl: " + formatted_kolo + ", dĺžka trvania hry: " + formatted_total_time +"\n"
+with open(file_name, "a") as file:
+    record = "dátum: " + formatted_datetime + ", víťaz: " + formatted_vitaz + ", počet odohraných kôl: " + formatted_kolo + ", dĺžka trvania hry: " + formatted_total_time + "\n"
     file.write(record)
 print("Hra ukončená")
 
-if zadaj_volbu("Zadajte 'a' pre možnosť zobrazenia histórie hier,alebo 'n' pre opustenie hŕy bez zobrazenia histórie.") == "a":
-    zobraz_obsah_suboru(file_path)#vytlac subor
+if zadaj_volbu("Zadajte 'a' pre možnosť zobrazenia histórie hier, alebo 'n' pre opustenie hŕy bez zobrazenia histórie.") == "a":
+    print("\nZobrazenie histórie odohraných hier:")
+    zobraz_obsah_suboru(file_name)
 else:
     print("Ukončenie bez zobrazenia súboru s históriou hier.")
-
+print("Dovidenia pri ďalšej hre")
 
 """
 ######################
