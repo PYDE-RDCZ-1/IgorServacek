@@ -10,3 +10,6 @@ dátum: 2024-05-06 06:06:48 , víťaz: Luboš          , počet odohraných kôl
 dátum: 2024-05-06 07:40:48 , víťaz: Testovaci vitaz, počet odohraných kôl: 1  , dĺžka trvania hry: 0:00:00.020480
 dátum: 2024-05-06 07:42:02 , víťaz: Testovaci vitaz, počet odohraných kôl: 1  , dĺžka trvania hry: 0:00:00.023552
 dátum: 2024-05-06 07:44:39 , víťaz: Testovaci vitaz, počet odohraných kôl: 1  , dĺžka trvania hry: 0:00:00.018345
+dátum: 2024-05-06 08:30:15 , víťaz: Testovaci vitaz, počet odohraných kôl: 1  , dĺžka trvania hry: 0:00:00.023533
+dátum: 2024-05-06 08:32:46 , víťaz: Testovaci vitaz, počet odohraných kôl: 1  , dĺžka trvania hry: 0:00:00.021156
+dátum: 2024-05-06 08:34:09 , víťaz: Testovaci vitaz, počet odohraných kôl: 1  , dĺžka trvania hry: 0:00:00.022105
